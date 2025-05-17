@@ -2,3 +2,7 @@
 body{
     font-family: "Rancho", cursive;
 }
+@import "tailwindcss";
+@plugin "daisyui"{
+  themes: light --default
+}
