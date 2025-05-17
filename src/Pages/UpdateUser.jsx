@@ -11,7 +11,7 @@ const UpdateUser = () => {
     const formData = new FormData(form);
     const upDateUser = Object.fromEntries(formData.entries());
     // send data base 
-    fetch(`http://localhost:3000/users/${_id}`,{
+    fetch(`https://coffee-store-server-sandy-six.vercel.app/users/${_id}`,{
         method:"PUT",
         headers:{
             "content-type": "application/json", 

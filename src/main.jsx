@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/coffees"),
+        loader: () => fetch("https://coffee-store-server-sandy-six.vercel.app/coffees"),
         Component: Home,
       },
       {
@@ -34,13 +34,13 @@ const router = createBrowserRouter([
       {
         path: "/coffee/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(`https://coffee-store-server-sandy-six.vercel.app/coffees/${params.id}`),
         Component: CoffeeDeatils,
       },
       {
         path: "upDateCoffee/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(`https://coffee-store-server-sandy-six.vercel.app/coffees/${params.id}`),
         Component: UpDateCoffee,
       },
       {
@@ -53,17 +53,17 @@ const router = createBrowserRouter([
       },
       {
         path:'/users',
-        loader:()=>fetch('http://localhost:3000/users'),
+        loader:()=>fetch('https://coffee-store-server-sandy-six.vercel.app/users'),
         Component:Users
       },
       {
         path:'/UserAbout/:id',
-        loader:({params})=>fetch(`http://localhost:3000/users/${params.id}`),
+        loader:({params})=>fetch(`https://coffee-store-server-sandy-six.vercel.app/users/${params.id}`),
         Component:UserAbout
       },
       {
         path:'/UpdateUser/:id',
-        loader:({params})=>fetch(`http://localhost:3000/users/${params.id}`),
+        loader:({params})=>fetch(`https://coffee-store-server-sandy-six.vercel.app/users/${params.id}`),
         Component:UpdateUser
       }
     ],
