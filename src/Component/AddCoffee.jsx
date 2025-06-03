@@ -1,32 +1,31 @@
-import React from "react";
+import React, { use } from "react";
 import Swal from "sweetalert2";
+import { AuthContex } from "../Provider/AuthProvider";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const AddCoffee = () => {
+  const  navigate=useNavigate()
+  const {user}=use(AuthContex);
   const handleAddCoffee = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const newCoffee = Object.fromEntries(formData.entries());
-    fetch("https://coffee-store-server-sandy-six.vercel.app/coffees", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newCoffee),
+    newCoffee.email=user.email 
+    newCoffee.likedBy=[]
+    axios.post(`${import.meta.env.VITE_API_URL}/add-coffee`,newCoffee)
+    .then(res=>{
+      console.log(res)
+       Swal.fire({
+          title: 'Good job!',
+          text: 'Data Added Successfully',
+          icon: 'success',
+        })
+        navigate('/')
+    }).catch(err=>{
+      console.log(err)
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "Coffee add successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          form.reset()
-        }
-      });
   };
   return (
     <div className="bg-[#F4F3F0] p-20">

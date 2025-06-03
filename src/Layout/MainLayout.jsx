@@ -5,11 +5,11 @@ import Footer from "../Component/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="bg-[]">
+    <div className="bg-[] w-10/12 mx-auto">
       <Header></Header>
 
      
-     <div className='bg-gradient-to-r from-green-50 to-green-100 min-h-[calc(100vh-428px)]'>
+     <div className=' min-h-[calc(100vh-428px)]'>
        <Outlet></Outlet>
      </div>
 

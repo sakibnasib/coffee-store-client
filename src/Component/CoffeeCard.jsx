@@ -19,7 +19,7 @@ const CoffeeCard = ({ coffee ,coffees,setCoffees}) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://coffee-store-server-sandy-six.vercel.app/coffees/${_id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/coffees/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -51,7 +51,7 @@ const CoffeeCard = ({ coffee ,coffees,setCoffees}) => {
             <FiEye size={25} color="white" />
           </button>
         </Link>
-        <Link to={`upDateCoffee/${_id}`}>
+        <Link to={`/upDateCoffee/${_id}`}>
           <button className="btn bg-red-600">
             <CiEdit size={25} color="white" />
           </button>

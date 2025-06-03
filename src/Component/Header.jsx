@@ -1,39 +1,116 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import { useContext } from 'react'
+import { Link, NavLink } from 'react-router'
+import { AuthContex } from '../Provider/AuthProvider'
+
 
 const Header = () => {
-   
-    return (
-       <div className="navbar bg-[url('https://i.ibb.co/8n5dQmvs/15.jpg')] shadow-sm ">
-  <div className="navbar-start">
-    <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+  const { user, logOut } = useContext(AuthContex)
+  return (
+    <div className='navbar bg-base-100 shadow-sm'>
+      <div className='navbar-start'>
+        <div className='dropdown'>
+          <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-5 w-5'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              {' '}
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M4 6h16M4 12h8m-8 6h16'
+              />{' '}
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className='menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow'
+          >
+            <li>
+              <Link to='/'>Home</Link>
+            </li>
+            <li>
+              <NavLink to='/all'>All Coffee's</NavLink>
+            </li>
+
+            {user && (
+              <>
+                <li>
+                  <Link to='/addCoffee'>Add Coffee</Link>
+                </li>
+                <li>
+                  <Link to={`/my-added-coffees/${user?.email}`}>My Added Coffee's</Link>
+                </li>
+                <li>
+                  <Link to='/my-orders'>My Orders</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+        <a className='btn btn-ghost text-xl text-warning'>Coffee Store</a>
+        <input
+          type='checkbox'
+          value='cupcake'
+          className='toggle theme-controller'
+        />
       </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content  bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-       <NavLink to='/'>Home</NavLink>
-       <NavLink to='/login'>Login</NavLink>
-       <NavLink to='/signin'>Signin</NavLink>
-       <NavLink to='/users'>Users</NavLink>
-      </ul>
+      <div className='navbar-end hidden lg:flex'>
+        <ul className='menu menu-horizontal px-1 items-center'>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+           <NavLink to='/all'>All Coffee's</NavLink>
+          </li>
+
+          {user ? (
+            <>
+              <li>
+                <Link to='/addCoffee'>Add Coffee</Link>
+              </li>
+              <li>
+                <Link to={`/my-added-coffees/${user?.email}`}>
+                  My Added Coffee's
+                </Link>
+              </li>
+              <li>
+                <Link to='/my-orders'>My Orders</Link>
+              </li>
+              {user && (
+                <div className='flex justify-around items-center gap-2'>
+                  {user?.photoURL && (
+                    <img
+                      src={user.photoURL}
+                      referrerPolicy='no-referrer'
+                      alt='avatar'
+                      className='w-8 rounded-full hidden md:flex'
+                    />
+                  )}
+                  <button className='btn btn-warning' onClick={logOut}>
+                    Logout
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to='/login'>Login</Link>
+              </li>
+              <li>
+                <Link to='/signup'>Register</Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
     </div>
-    <p className="btn btn-ghost text-xl"><img className='w-[50px] h-[40px]' src="https://i.ibb.co/hJgq3HYL/logo1.png" alt="" /></p>
-  </div>
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal text-white  px-1 gap-3">
-        <NavLink to='/'>Home</NavLink>
-       <NavLink to='/login'>Login</NavLink>
-       <NavLink to='/signin'>Signin</NavLink>
-        <NavLink to='/users'>Users</NavLink>
-    </ul>
-  </div>
-  <div className="navbar-end">
+  )
+}
 
-  </div>
-</div>
-    );
-};
-
-export default Header;
+export default Header
